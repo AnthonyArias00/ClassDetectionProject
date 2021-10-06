@@ -9,8 +9,9 @@ from tensorflow.python.keras import backend as K #Ayuda a iniciar el entrenamien
 
 K.clear_session() #limpia la maquina 
 
-dataEntrenamiento = './data/training' #Donde se encuentran las imagenes donde se quiera entrenar 
-dataValidacion = './data/validation' #Donde se encuentran las imagenes donde se quiere hacer la validacion  
+print("\nCarpetas con los datos:")
+dataEntrenamiento = ('secuential implementation/data/training') #Donde se encuentran las imagenes donde se quiera entrenar 
+dataValidacion = ('secuential implementation/data/validation') #Donde se encuentran las imagenes donde se quiere hacer la validacion  
 
 #parametros
 
@@ -36,6 +37,7 @@ entrenamientoDataGenerator = ImageDataGenerator( #Generador para preprocesar la 
     horizontal_flip = True #Inverite las imagenes 
 )
 
+
 validacionDataGenerator = ImageDataGenerator( #Generador para validar la informacion de la imagen 
     rescale = 1./255 # #Rango de pixel de 0 - 1 para hacer mas eficinete el entrenamiento
 )
@@ -44,7 +46,7 @@ imagenEntrenamiento = entrenamientoDataGenerator.flow_from_directory( #Set de da
     dataEntrenamiento,
     target_size = (altura, longitud), #Define la altura y la longitud de la imagen
     batch_size = batchSize, #Numero de imagenes que se van a procesar en cada uno de los pasos 
-    class_mode = 'categorical' #Procesa la carpeta de entrenamiento procesa a alrura y longitud especifica en un batchSize de 32 
+    class_mode = 'categorical' #Implica datos por categorías 
 )
 
 imagenValidacion = validacionDataGenerator.flow_from_directory( #Set de datos de validacion 
@@ -54,9 +56,12 @@ imagenValidacion = validacionDataGenerator.flow_from_directory( #Set de datos de
     class_mode = 'categorical'
 )
 
+
+print("\nHasta aca todo bien")
 #Crear red CNN
 
 cnn = Sequential() #Se crea red secuencial se crean varias capas apiladas entre ellas 
+'''
 
 cnn.add(Convolution2D(filtrosConv1, tamanoFiltro1, padding = 'same', inputShape = (altura, longitud, 3), activation = 'relu')) #Se define que laprimera capa es una convolucion, también el numero de filtros que va tener, el tamaño del filtro, el padding define lo que va a hacer el filtro en las esquinas, el input indica la altura y la longitud mas los tres canales (rgb) de las imagenes que se van a utilizar solamente en la primera capa, como tambien se define la funcion de activacion relu 
 cnn.add(MaxPooling2D(poolSize = tamanoPool)) #Despues de la capa de convolucion se tiene una capa de MaxPooling y se fefine el tamaño del filtro
@@ -77,3 +82,4 @@ if not os.path.existys(dir): #se genera una carpeta a llamada a modelo
     os.mkdir(dir)
 cnn.save('./modelo/modelo.h5') #Se guarda guarda la estructura del modelo en el archivo modelo 
 cnn.saveWeights('./modelo/peso.h5') #Guarda los pesos de cada una de las capas ya entrenadas 
+'''
